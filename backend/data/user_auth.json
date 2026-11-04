@@ -1,0 +1,10 @@
+{
+  "user_id": "user_admin_001",
+  "email": "admin@jobtracker.com",
+  "name": "Admin User",
+  "password_hash": "22420795fec3c4e3c8a509e5c851e989:b9d86d5cda86b3a39c36ca9b14989fad00ca9b69b48ca5090c92ecfca145a760",
+  "avatar": "",
+  "provider": "manual",
+  "created_at": "2026-11-04T14:36:43.226433",
+  "updated_at": "2026-11-04T14:36:43.226433"
+}

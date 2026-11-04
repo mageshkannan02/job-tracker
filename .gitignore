@@ -15,8 +15,12 @@ backend/htmlcov/
 backend/.env
 *.env.local
 
-# Data and uploads (personal data — do not commit)
-backend/data/
+# Data and uploads
+backend/data/*
+!backend/data/job_tracker.xlsx
+!backend/data/user_auth.json
+backend/data/*.lock
+backend/data/*.tmp
 backend/resumes/
 backend/backups/
 

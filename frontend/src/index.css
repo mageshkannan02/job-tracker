@@ -1,0 +1,635 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Autumn Warm Light Theme (Default) */
+    --background: 38 42% 97%;          /* Cozy warm ivory parchment #fcf9f2 */
+    --foreground: 22 38% 16%;          /* Deep cedar espresso */
+    --card: 38 40% 99%;                /* Warm cream ivory */
+    --card-foreground: 22 38% 16%;
+    --popover: 38 40% 99%;
+    --popover-foreground: 22 38% 16%;
+    --primary: 24 88% 49%;             /* Vibrant Autumn Amber / Maple Flame #e65c00 */
+    --primary-foreground: 38 90% 98%;
+    --secondary: 35 36% 92%;           /* Warm oat / cinnamon haze */
+    --secondary-foreground: 24 45% 22%;
+    --muted: 35 30% 92%;
+    --muted-foreground: 24 22% 44%;    /* Warm cedar bark */
+    --accent: 38 92% 50%;              /* Golden harvest amber */
+    --accent-foreground: 22 45% 14%;
+    --destructive: 0 78% 54%;          /* Vivid autumn crimson */
+    --destructive-foreground: 0 0% 100%;
+    --border: 30 28% 86%;              /* Light warm wood border */
+    --input: 30 28% 86%;
+    --ring: 24 88% 49%;
+    --radius: 0.625rem;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  .dark {
+    /* Autumn Twilight / Enchanted Forest Night */
+    --background: 22 25% 10%;          /* Deep cedar charcoal / rich mahogany #1a1512 */
+    --foreground: 38 35% 94%;          /* Warm parchment text */
+    --card: 24 22% 14%;                /* Deep warm oak */
+    --card-foreground: 38 35% 94%;
+    --popover: 24 22% 14%;
+    --popover-foreground: 38 35% 94%;
+    --primary: 28 92% 54%;             /* Glowing maple ember */
+    --primary-foreground: 22 30% 10%;
+    --secondary: 22 18% 20%;
+    --secondary-foreground: 38 30% 92%;
+    --muted: 22 18% 20%;
+    --muted-foreground: 30 18% 66%;    /* Dried autumn fern */
+    --accent: 38 85% 50%;              /* Golden amber glow */
+    --accent-foreground: 22 30% 10%;
+    --destructive: 0 65% 48%;
+    --destructive-foreground: 38 35% 94%;
+    --border: 24 22% 22%;              /* Warm bronze bark border */
+    --input: 24 22% 22%;
+    --ring: 28 92% 54%;
+  }
+
+  /* ==========================================================================
+     VIVID & CINEMATIC ADAPTIVE TEXT COLOR & HIGH-CONTRAST LEGIBILITY RULES
+     When background is Vivid (0.72) or Cinematic (0.96), forest foliage colors
+     bleed through. The rules below adapt text colors, muted text, headers,
+     card surfaces, and shadows for crystal-clear readability.
+     ========================================================================== */
+
+  /* Light Mode - Vivid Intensity */
+  [data-bg-intensity="vivid"] {
+    --foreground: 20 70% 6%;           /* Ultra-deep obsidian cedar espresso #100703 */
+    --card-foreground: 20 70% 6%;
+    --popover-foreground: 20 70% 6%;
+    --muted-foreground: 20 60% 18%;    /* Deep contrast espresso #36170a (2.5x darker than standard muted) */
+    --secondary-foreground: 20 65% 14%;
+    --border: 24 35% 72%;              /* Crisp defined card & input boundaries */
+    --input: 24 35% 72%;
+    --ring: 24 90% 44%;
+  }
+
+  /* Light Mode - Cinematic Intensity (Maximum Contrast) */
+  [data-bg-intensity="cinematic"] {
+    --foreground: 20 80% 4%;           /* Maximum obsidian black-cedar #0a0301 */
+    --card-foreground: 20 80% 4%;
+    --popover-foreground: 20 80% 4%;
+    --muted-foreground: 20 65% 14%;    /* High-clarity espresso #240c04 */
+    --secondary-foreground: 20 70% 10%;
+    --border: 24 40% 68%;
+    --input: 24 40% 68%;
+    --ring: 24 95% 42%;
+  }
+
+  /* Dark Mode - Vivid Intensity */
+  .dark[data-bg-intensity="vivid"] {
+    --foreground: 38 80% 98%;          /* Radiant gleaming warm ivory #fffef9 */
+    --card-foreground: 38 80% 98%;
+    --popover-foreground: 38 80% 98%;
+    --muted-foreground: 35 48% 88%;    /* Clear warm parchment #f5e9d9 (high contrast against dark forest) */
+    --secondary-foreground: 38 65% 96%;
+    --card: 22 26% 12%;                /* Rich mahogany slate */
+    --popover: 22 26% 12%;
+    --border: 24 28% 28%;              /* Distinct separation from dark forest */
+    --input: 24 28% 28%;
+    --ring: 28 95% 58%;
+  }
+
+  /* Dark Mode - Cinematic Intensity (Maximum Brilliance) */
+  .dark[data-bg-intensity="cinematic"] {
+    --foreground: 40 90% 99%;          /* Pure brilliant diamond ivory #ffffff */
+    --card-foreground: 40 90% 99%;
+    --popover-foreground: 40 90% 99%;
+    --muted-foreground: 35 55% 92%;    /* Ultra-clear luminous parchment #faefe2 */
+    --secondary-foreground: 40 75% 98%;
+    --card: 22 30% 10%;
+    --popover: 22 30% 10%;
+    --border: 24 32% 34%;
+    --input: 24 32% 34%;
+    --ring: 28 100% 60%;
+  }
+
+  /* ==========================================================================
+     TYPOGRAPHY & FONT STYLE PRESETS
+     ========================================================================== */
+
+  /* Modern Geometric Sans (Default - Plus Jakarta Sans) */
+  :root,
+  [data-font-style="jakarta"] {
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  /* Warm & Balanced Geometric (Outfit) */
+  [data-font-style="outfit"] {
+    --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  /* Clean Technical Neutral (Inter) */
+  [data-font-style="inter"] {
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  /* Editorial Elegance (Playfair Display Headings + Plus Jakarta Body) */
+  [data-font-style="editorial"] {
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-heading: 'Playfair Display', Georgia, serif;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+  html, body {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    letter-spacing: -0.012em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    background-image: 
+      radial-gradient(ellipse at 85% 10%, rgba(234, 88, 12, 0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 15% 90%, rgba(217, 119, 6, 0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(180, 83, 9, 0.02) 0%, transparent 60%);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-heading {
+    font-family: var(--font-heading);
+    letter-spacing: -0.024em;
+  }
+}
+
+/* Global scrollbar removal - completely hide scrollbars across all browsers, containers, and elements */
+::-webkit-scrollbar,
+*::-webkit-scrollbar,
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+  background: transparent !important;
+}
+
+::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner,
+*::-webkit-scrollbar-corner {
+  display: none !important;
+  background: transparent !important;
+}
+
+/* Hide Radix UI ScrollArea scrollbars */
+[data-radix-scroll-area-scrollbar],
+[data-radix-scroll-area-thumb] {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+}
+.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+/* Autumn Falling Leaves Animation */
+@keyframes autumn-fall {
+  0% {
+    top: -40px;
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    top: 105vh;
+    opacity: 0;
+  }
+}
+
+@keyframes autumn-sway {
+  0% {
+    transform: translateX(-28px) rotate(-18deg);
+  }
+  50% {
+    transform: translateX(18px) rotate(14deg);
+  }
+  100% {
+    transform: translateX(-24px) rotate(-12deg);
+  }
+}
+
+/* Autumn Shading & Foliage Utilities */
+.autumn-glow {
+  box-shadow: 0 4px 20px -2px rgba(234, 88, 12, 0.12), 0 2px 8px -2px rgba(217, 119, 6, 0.08);
+}
+
+.autumn-card-hover {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.autumn-card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px rgba(234, 88, 12, 0.16), 0 4px 12px -2px rgba(217, 119, 6, 0.1);
+  border-color: rgba(234, 88, 12, 0.3);
+}
+
+/* Subtle autumn tree branch silhouette watermark for sidebar and hero areas */
+.autumn-tree-shading {
+  background-image: radial-gradient(circle at 100% 0%, rgba(217, 119, 6, 0.08) 0%, transparent 45%),
+                    radial-gradient(circle at 0% 100%, rgba(234, 88, 12, 0.06) 0%, transparent 40%);
+}
+
+/* Ensure cards and modals retain high contrast and crisp legibility over scenic animated landscapes */
+.bg-card, [class*="bg-card"] {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* ==========================================================================
+   VIVID & CINEMATIC READABILITY & SHADOW ENHANCEMENTS
+   ========================================================================== */
+
+/* Subtle protective text shadow / halo so headings, stat values, and titles pop cleanly */
+[data-bg-intensity="vivid"] h1,
+[data-bg-intensity="vivid"] h2,
+[data-bg-intensity="vivid"] h3,
+[data-bg-intensity="vivid"] h4,
+[data-bg-intensity="cinematic"] h1,
+[data-bg-intensity="cinematic"] h2,
+[data-bg-intensity="cinematic"] h3,
+[data-bg-intensity="cinematic"] h4 {
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.85);
+}
+
+.dark[data-bg-intensity="vivid"] h1,
+.dark[data-bg-intensity="vivid"] h2,
+.dark[data-bg-intensity="vivid"] h3,
+.dark[data-bg-intensity="vivid"] h4,
+.dark[data-bg-intensity="cinematic"] h1,
+.dark[data-bg-intensity="cinematic"] h2,
+.dark[data-bg-intensity="cinematic"] h3,
+.dark[data-bg-intensity="cinematic"] h4 {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95), 0 0 8px rgba(0, 0, 0, 0.7);
+}
+
+/* ==========================================================================
+   GLASSMORPHISM & FROSTED GLASS UI ARCHITECTURE
+   High-end frosted translucent surfaces with specular crystal borders,
+   deep backdrop blur, and luminous ambient reflections.
+   ========================================================================== */
+
+/* 1. Base Glass Cards, Tiles & Panels */
+.bg-card,
+[class*="bg-card"],
+.card,
+.glass-card {
+  background-color: rgba(255, 252, 246, 0.72) !important;
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 250, 240, 0.15) 100%) !important;
+  backdrop-filter: blur(20px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(190%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.65) !important;
+  box-shadow: 
+    0 8px 32px 0 rgba(180, 83, 9, 0.08),
+    0 2px 8px 0 rgba(180, 83, 9, 0.04),
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -1px 1px 0 rgba(217, 119, 6, 0.04) !important;
+}
+
+.dark .bg-card,
+.dark [class*="bg-card"],
+.dark .card,
+.dark .glass-card {
+  background-color: rgba(26, 18, 14, 0.68) !important;
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(0, 0, 0, 0.25) 100%) !important;
+  backdrop-filter: blur(20px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(190%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 
+    0 12px 36px 0 rgba(0, 0, 0, 0.45),
+    0 2px 10px 0 rgba(0, 0, 0, 0.3),
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.4) !important;
+}
+
+/* 2. Intensity-Calibrated Frosted Glass for Vivid Mode */
+[data-bg-intensity="vivid"] .bg-card,
+[data-bg-intensity="vivid"] [class*="bg-card"],
+[data-bg-intensity="vivid"] .glass-card {
+  background-color: rgba(255, 250, 242, 0.78) !important;
+  backdrop-filter: blur(24px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.75) !important;
+  box-shadow: 
+    0 8px 32px 0 rgba(180, 83, 9, 0.10),
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 1px 0 rgba(217, 119, 6, 0.06) !important;
+}
+
+.dark[data-bg-intensity="vivid"] .bg-card,
+.dark[data-bg-intensity="vivid"] [class*="bg-card"],
+.dark[data-bg-intensity="vivid"] .glass-card {
+  background-color: rgba(24, 16, 12, 0.75) !important;
+  backdrop-filter: blur(24px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 
+    0 14px 42px 0 rgba(0, 0, 0, 0.55),
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.26),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.5) !important;
+}
+
+/* 3. Intensity-Calibrated Frosted Glass for Cinematic Mode */
+[data-bg-intensity="cinematic"] .bg-card,
+[data-bg-intensity="cinematic"] [class*="bg-card"],
+[data-bg-intensity="cinematic"] .glass-card {
+  background-color: rgba(255, 250, 242, 0.82) !important;
+  backdrop-filter: blur(28px) saturate(210%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(210%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 
+    0 10px 36px 0 rgba(180, 83, 9, 0.12),
+    inset 0 1px 2px 0 rgba(255, 255, 255, 1) !important;
+}
+
+.dark[data-bg-intensity="cinematic"] .bg-card,
+.dark[data-bg-intensity="cinematic"] [class*="bg-card"],
+.dark[data-bg-intensity="cinematic"] .glass-card {
+  background-color: rgba(22, 14, 10, 0.80) !important;
+  backdrop-filter: blur(28px) saturate(210%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(210%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 
+    0 16px 48px 0 rgba(0, 0, 0, 0.65),
+    inset 0 1px 2px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+/* 4. Glass TopBar (Header) */
+header.sticky, header {
+  background-color: rgba(254, 251, 245, 0.72) !important;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%) !important;
+  backdrop-filter: blur(24px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 4px 20px -2px rgba(180, 83, 9, 0.05), inset 0 -1px 0 0 rgba(255, 255, 255, 0.5) !important;
+}
+
+.dark header.sticky, .dark header {
+  background-color: rgba(22, 16, 12, 0.70) !important;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.2) 100%) !important;
+  backdrop-filter: blur(24px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10) !important;
+  box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.5), inset 0 -1px 0 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+/* 5. Glass Sidebar */
+aside.fixed, aside {
+  background-color: rgba(255, 252, 247, 0.75) !important;
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%) !important;
+  backdrop-filter: blur(24px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.55) !important;
+  box-shadow: 4px 0 24px -2px rgba(180, 83, 9, 0.05), inset -1px 0 0 0 rgba(255, 255, 255, 0.45) !important;
+}
+
+.dark aside.fixed, .dark aside {
+  background-color: rgba(24, 17, 13, 0.72) !important;
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.2) 100%) !important;
+  backdrop-filter: blur(24px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.10) !important;
+  box-shadow: 4px 0 28px -2px rgba(0, 0, 0, 0.5), inset -1px 0 0 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+/* 6. Glass Popovers, Menus, Modals & Dialogs */
+.bg-popover,
+[data-radix-popper-content-wrapper] > div,
+[role="menu"],
+[role="dialog"],
+div[data-state="open"].fixed {
+  background-color: rgba(255, 253, 249, 0.85) !important;
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 250, 240, 0.2) 100%) !important;
+  backdrop-filter: blur(28px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.75) !important;
+  box-shadow: 
+    0 16px 48px -8px rgba(30, 15, 5, 0.16),
+    0 4px 16px 0 rgba(30, 15, 5, 0.08),
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
+.dark .bg-popover,
+.dark [data-radix-popper-content-wrapper] > div,
+.dark [role="menu"],
+.dark [role="dialog"],
+.dark div[data-state="open"].fixed {
+  background-color: rgba(24, 16, 12, 0.84) !important;
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(0, 0, 0, 0.3) 100%) !important;
+  backdrop-filter: blur(28px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  box-shadow: 
+    0 20px 52px -8px rgba(0, 0, 0, 0.7),
+    0 6px 20px 0 rgba(0, 0, 0, 0.4),
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.25) !important;
+}
+
+/* 7. Glass Inputs & Form Controls */
+input:not([type="checkbox"]):not([type="radio"]),
+select,
+textarea {
+  background-color: rgba(255, 255, 255, 0.60) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.70) !important;
+  box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.04), 0 1px 3px 0 rgba(0, 0, 0, 0.02) !important;
+}
+
+.dark input:not([type="checkbox"]):not([type="radio"]),
+.dark select,
+.dark textarea {
+  background-color: rgba(30, 20, 15, 0.60) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.35) !important;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):focus,
+select:focus,
+textarea:focus {
+  background-color: rgba(255, 255, 255, 0.90) !important;
+  border-color: rgba(245, 158, 11, 0.65) !important;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2), inset 0 1px 2px 0 rgba(0, 0, 0, 0.02) !important;
+}
+
+.dark input:not([type="checkbox"]):not([type="radio"]):focus,
+.dark select:focus,
+.dark textarea:focus {
+  background-color: rgba(38, 25, 19, 0.88) !important;
+  border-color: rgba(245, 158, 11, 0.55) !important;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.28), inset 0 1px 2px 0 rgba(0, 0, 0, 0.25) !important;
+}
+
+/* 8. Glass Interactive Hover for Cards & Buttons */
+.autumn-card-hover:hover,
+button.bg-card:hover,
+div.bg-card:hover {
+  transform: translateY(-2px);
+  background-color: rgba(255, 255, 255, 0.86) !important;
+  border-color: rgba(245, 158, 11, 0.45) !important;
+  box-shadow: 
+    0 14px 40px -4px rgba(234, 88, 12, 0.16),
+    0 4px 14px -2px rgba(217, 119, 6, 0.08),
+    inset 0 1px 2px 0 rgba(255, 255, 255, 1) !important;
+}
+
+.dark .autumn-card-hover:hover,
+.dark button.bg-card:hover,
+.dark div.bg-card:hover {
+  transform: translateY(-2px);
+  background-color: rgba(32, 22, 17, 0.82) !important;
+  border-color: rgba(245, 158, 11, 0.35) !important;
+  box-shadow: 
+    0 16px 44px -4px rgba(0, 0, 0, 0.65),
+    0 4px 14px -2px rgba(245, 158, 11, 0.15),
+    inset 0 1px 2px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+/* 9. Glass Kanban Columns, Filter Bars & Badges */
+.bg-muted\/40,
+.bg-muted\/50,
+.bg-muted {
+  background-color: rgba(245, 238, 225, 0.58) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+.dark .bg-muted\/40,
+.dark .bg-muted\/50,
+.dark .bg-muted {
+  background-color: rgba(32, 22, 17, 0.58) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Ensure fractional text opacities remain bold and non-faint */
+[data-bg-intensity="vivid"] .text-foreground\/80,
+[data-bg-intensity="vivid"] .text-foreground\/85,
+[data-bg-intensity="cinematic"] .text-foreground\/80,
+[data-bg-intensity="cinematic"] .text-foreground\/85 {
+  color: hsl(var(--foreground)) !important;
+  opacity: 0.98 !important;
+}
+
+[data-bg-intensity="vivid"] .text-muted-foreground,
+[data-bg-intensity="cinematic"] .text-muted-foreground {
+  color: hsl(var(--muted-foreground));
+  font-weight: 500;
+}
+
+[data-bg-intensity="vivid"] .text-muted-foreground\/70,
+[data-bg-intensity="vivid"] .text-muted-foreground\/80,
+[data-bg-intensity="cinematic"] .text-muted-foreground\/70,
+[data-bg-intensity="cinematic"] .text-muted-foreground\/80 {
+  color: hsl(var(--muted-foreground)) !important;
+  opacity: 1 !important;
+}
+
+/* Form inputs & search bar contrast */
+[data-bg-intensity="vivid"] input,
+[data-bg-intensity="vivid"] select,
+[data-bg-intensity="vivid"] textarea,
+[data-bg-intensity="cinematic"] input,
+[data-bg-intensity="cinematic"] select,
+[data-bg-intensity="cinematic"] textarea {
+  color: hsl(var(--foreground)) !important;
+}
+
+[data-bg-intensity="vivid"] input::placeholder,
+[data-bg-intensity="cinematic"] input::placeholder {
+  color: hsl(var(--muted-foreground)) !important;
+  opacity: 0.85 !important;
+}
+
+/* Table header text high-contrast */
+[data-bg-intensity="vivid"] th,
+[data-bg-intensity="cinematic"] th {
+  color: hsl(var(--foreground)) !important;
+  font-weight: 600 !important;
+}
+
+/* Universal Smooth Interactive Transitions */
+a, button, input, select, textarea {
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  transition-duration: 200ms;
+}
+
+/* Smooth Interactive Card Lift & Press */
+.interactive-card {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.interactive-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(234, 88, 12, 0.12), 0 8px 10px -6px rgba(217, 119, 6, 0.06);
+}
+.interactive-card:active {
+  transform: translateY(0px) scale(0.99);
+}
+
+/* Dialog and Overlay Spring Entrance */
+[data-state="open"] {
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Animated App Logo Loader - Smooth 360° Continuous Rotation (Borderless & Transparent) */
+@keyframes logo-spin-smooth {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-app-logo-loading,
+.animate-logo-spin {
+  animation: logo-spin-smooth 2.2s linear infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* Ensure app logo has no outline or border anywhere */
+img[src*="app-logo"] {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+

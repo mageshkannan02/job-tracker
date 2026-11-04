@@ -1,0 +1,41 @@
+# Git
+.git/
+
+# Python
+backend/venv/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/**/*.pyc
+backend/**/*.pyo
+backend/.pytest_cache/
+backend/.coverage
+backend/htmlcov/
+
+# Environment
+backend/.env
+*.env.local
+
+# Data and uploads (personal data — do not commit)
+backend/data/
+backend/resumes/
+backend/backups/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+

@@ -1,0 +1,10 @@
+{
+  "user_id": "user_admin_001",
+  "email": "admin@jobtracker.com",
+  "name": "Google Authenticated User",
+  "password_hash": "695a1c7967554880c7e9a82e2baa2593:9328d144a7ac04925679c31725115c12ea40f435fa3b70ee29d8c7680f1826bb",
+  "avatar": "",
+  "provider": "google",
+  "created_at": "2026-11-04T14:28:55.652522",
+  "updated_at": "2026-11-04T14:39:30.129855"
+}

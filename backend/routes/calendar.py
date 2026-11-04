@@ -74,7 +74,7 @@ def google_oauth_callback(
     error: Optional[str] = Query(None),
 ):
     """OAuth 2.0 callback endpoint from Google."""
-    frontend_settings_url = f"http://127.0.0.1:{settings.frontend_port}/settings"
+    frontend_settings_url = getattr(settings, "frontend_url", "").rstrip("/") + "/settings" if getattr(settings, "frontend_url", "") else "/settings"
 
     if error:
         logger.warning(f"Google OAuth error returned: {error}")

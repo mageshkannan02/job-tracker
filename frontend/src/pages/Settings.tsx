@@ -412,7 +412,8 @@ export const Settings: React.FC = () => {
 
   const checkServerHealth = async () => {
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/dashboard/stats', {
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || '';
+      const res = await fetch(`${baseUrl}/api/dashboard/stats`, {
         method: 'GET',
       });
       setServerHealthy(res.ok);
@@ -908,7 +909,7 @@ export const Settings: React.FC = () => {
                   </div>
                   <div className="flex items-center justify-between pt-1">
                     <p className="text-[11px] text-muted-foreground">
-                      Redirect URI: <code className="text-foreground">{calendarStatus?.redirect_uri || 'http://127.0.0.1:8000/api/calendar/callback'}</code>
+                      Redirect URI: <code className="text-foreground">{calendarStatus?.redirect_uri || (typeof window !== 'undefined' ? `${window.location.origin}/api/calendar/callback` : 'http://127.0.0.1:8000/api/calendar/callback')}</code>
                     </p>
                     <Button type="submit" size="sm" disabled={isSavingGcalConfig} className="h-7 text-xs">
                       {isSavingGcalConfig ? 'Saving...' : 'Save Credentials'}
@@ -1486,7 +1487,7 @@ export const Settings: React.FC = () => {
 
           <div className="flex items-center justify-between py-1.5 border-b">
             <span className="text-muted-foreground">Backend API Endpoint</span>
-            <span className="font-mono">http://127.0.0.1:8000</span>
+            <span className="font-mono">{import.meta.env.VITE_API_BASE_URL || '/api'}</span>
           </div>
 
           <div className="flex items-center justify-between py-1.5 border-b">

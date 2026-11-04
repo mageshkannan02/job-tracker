@@ -31,7 +31,7 @@ import {
 } from '@/types';
 
 const api = axios.create({
-  baseURL: 'http://127.0.0.1:8000',
+  baseURL: import.meta.env.VITE_API_BASE_URL || '',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -191,8 +191,8 @@ export const calendarApi = {
   sync: () => api.post<CalendarSyncResult>('/api/calendar/sync'),
   disconnect: () =>
     api.post<{ success: boolean; message: string }>('/api/calendar/disconnect'),
-  getFeedUrl: () => `${api.defaults.baseURL || 'http://127.0.0.1:8000'}/api/calendar/feed.ics`,
-  getExportUrl: () => `${api.defaults.baseURL || 'http://127.0.0.1:8000'}/api/calendar/export.ics`,
+  getFeedUrl: () => `${api.defaults.baseURL || (typeof window !== 'undefined' ? window.location.origin : '')}/api/calendar/feed.ics`,
+  getExportUrl: () => `${api.defaults.baseURL || (typeof window !== 'undefined' ? window.location.origin : '')}/api/calendar/export.ics`,
   getWebLink: (params: {
     application_id?: string;
     followup_id?: string;
@@ -296,8 +296,12 @@ export const watcherApi = {
 export const authApi = {
   login: (credentials: LoginCredentials) =>
     api.post<AuthResponse>('/api/auth/login', credentials),
-  getGoogleAuthUrl: () =>
-    api.get<{ auth_url: string; configured: boolean }>('/api/auth/google/url'),
+  getGoogleAuthUrl: (redirectUri?: string) => {
+    const uri = redirectUri || (typeof window !== 'undefined' ? `${window.location.origin}/login/callback` : undefined);
+    return api.get<{ auth_url: string; configured: boolean }>('/api/auth/google/url', {
+      params: uri ? { redirect_uri: uri } : undefined,
+    });
+  },
   googleCallback: (code: string) =>
     api.post<AuthResponse>('/api/auth/google/callback', { code }),
   googleDemoLogin: (data?: { name?: string; email?: string }) =>

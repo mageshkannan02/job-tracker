@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     backend_host: str = "127.0.0.1"
     backend_port: int = 8000
     frontend_port: int = 5173
+    frontend_url: str = ""
     data_dir: Path = Path("./data")
     resume_dir: Path = Path("./resumes")
     backup_dir: Path = Path("./backups")

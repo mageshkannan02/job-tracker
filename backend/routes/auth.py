@@ -69,10 +69,15 @@ def login(req: LoginRequest) -> Dict[str, Any]:
 
 @router.get("/google/url")
 def get_google_auth_url(
-    redirect_uri: Optional[str] = Query("http://localhost:5173/login/callback")
+    redirect_uri: Optional[str] = Query(None)
 ) -> Dict[str, Any]:
     """Get Google OAuth URL for user authentication."""
-    return auth_service.get_google_login_auth_url(redirect_uri)
+    target_uri = (
+        redirect_uri
+        or (f"{settings.frontend_url.rstrip('/')}/login/callback" if getattr(settings, "frontend_url", "") else None)
+        or f"http://localhost:{settings.frontend_port}/login/callback"
+    )
+    return auth_service.get_google_login_auth_url(target_uri)
 
 
 @router.post("/google/callback")

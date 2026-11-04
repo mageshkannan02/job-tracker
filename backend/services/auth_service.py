@@ -25,7 +25,8 @@ DEFAULT_USER_EMAIL = os.getenv("DEFAULT_USER_EMAIL", "admin@jobtracker.com")
 DEFAULT_USER_PASSWORD = os.getenv("DEFAULT_USER_PASSWORD", "admin123")
 DEFAULT_USER_NAME = os.getenv("DEFAULT_USER_NAME", "Admin User")
 
-AUTH_FILE_PATH = Path("./data/user_auth.json")
+def get_auth_file_path() -> Path:
+    return settings.data_dir / "user_auth.json"
 
 
 def hash_password(password: str, salt: Optional[str] = None) -> str:
@@ -47,11 +48,15 @@ def verify_password(plain_password: str, stored_hash: str) -> bool:
 
 def get_or_create_seeded_user() -> Dict[str, Any]:
     """Retrieve or initialize the single manual seeded user."""
-    AUTH_FILE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    auth_path = get_auth_file_path()
+    try:
+        auth_path.parent.mkdir(parents=True, exist_ok=True)
+    except OSError:
+        pass
 
-    if AUTH_FILE_PATH.exists():
+    if auth_path.exists():
         try:
-            with open(AUTH_FILE_PATH, "r", encoding="utf-8") as f:
+            with open(auth_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
                 if data.get("email"):
                     return data
@@ -71,7 +76,7 @@ def get_or_create_seeded_user() -> Dict[str, Any]:
     }
 
     try:
-        with open(AUTH_FILE_PATH, "w", encoding="utf-8") as f:
+        with open(auth_path, "w", encoding="utf-8") as f:
             json.dump(user, f, indent=2)
         logger.info(f"Seeded single manual user initialized with email: {user['email']}")
     except Exception as e:
@@ -82,9 +87,13 @@ def get_or_create_seeded_user() -> Dict[str, Any]:
 
 def save_user(user: Dict[str, Any]) -> None:
     """Save the single user profile."""
-    AUTH_FILE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    auth_path = get_auth_file_path()
+    try:
+        auth_path.parent.mkdir(parents=True, exist_ok=True)
+    except OSError:
+        pass
     user["updated_at"] = datetime.now().isoformat()
-    with open(AUTH_FILE_PATH, "w", encoding="utf-8") as f:
+    with open(auth_path, "w", encoding="utf-8") as f:
         json.dump(user, f, indent=2)
 
 

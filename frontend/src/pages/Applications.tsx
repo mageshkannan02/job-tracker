@@ -61,7 +61,22 @@ export const Applications: React.FC = () => {
     }
   }, [outletContext?.searchQuery, setSearchQuery, searchQuery]);
 
-  const [viewMode, setViewMode] = useState<ViewMode>('kanban');
+  const [viewMode, setViewMode] = useState<ViewMode>(() => {
+    // Default to 'list' on mobile viewports (< 768px) for maximum smoothness and native feed scrolling
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      return (localStorage.getItem('applications_view_mode_mobile') as ViewMode) || 'list';
+    }
+    return (localStorage.getItem('applications_view_mode') as ViewMode) || 'kanban';
+  });
+
+  const handleSetViewMode = (mode: ViewMode) => {
+    setViewMode(mode);
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      localStorage.setItem('applications_view_mode_mobile', mode);
+    } else {
+      localStorage.setItem('applications_view_mode', mode);
+    }
+  };
 
   // Modal dialog states
   const [formOpen, setFormOpen] = useState<boolean>(false);
@@ -227,8 +242,8 @@ export const Applications: React.FC = () => {
             <Button
               variant={viewMode === 'kanban' ? 'default' : 'ghost'}
               size="sm"
-              className="h-8 px-2 sm:px-2.5 text-xs gap-1.5"
-              onClick={() => setViewMode('kanban')}
+              className="h-8 px-2 sm:px-2.5 text-xs gap-1.5 cursor-pointer touch-manipulation"
+              onClick={() => handleSetViewMode('kanban')}
               title="Kanban Board"
             >
               <Kanban className="h-3.5 w-3.5" />
@@ -237,8 +252,8 @@ export const Applications: React.FC = () => {
             <Button
               variant={viewMode === 'list' ? 'default' : 'ghost'}
               size="sm"
-              className="h-8 px-2 sm:px-2.5 text-xs gap-1.5"
-              onClick={() => setViewMode('list')}
+              className="h-8 px-2 sm:px-2.5 text-xs gap-1.5 cursor-pointer touch-manipulation"
+              onClick={() => handleSetViewMode('list')}
               title="List View"
             >
               <ListIcon className="h-3.5 w-3.5" />
@@ -247,8 +262,8 @@ export const Applications: React.FC = () => {
             <Button
               variant={viewMode === 'table' ? 'default' : 'ghost'}
               size="sm"
-              className="h-8 px-2 sm:px-2.5 text-xs gap-1.5"
-              onClick={() => setViewMode('table')}
+              className="h-8 px-2 sm:px-2.5 text-xs gap-1.5 cursor-pointer touch-manipulation"
+              onClick={() => handleSetViewMode('table')}
               title="Table View"
             >
               <TableIcon className="h-3.5 w-3.5" />
@@ -257,8 +272,8 @@ export const Applications: React.FC = () => {
             <Button
               variant={viewMode === 'calendar' ? 'default' : 'ghost'}
               size="sm"
-              className="h-8 px-2 sm:px-2.5 text-xs gap-1.5"
-              onClick={() => setViewMode('calendar')}
+              className="h-8 px-2 sm:px-2.5 text-xs gap-1.5 cursor-pointer touch-manipulation"
+              onClick={() => handleSetViewMode('calendar')}
               title="Calendar View"
             >
               <CalendarIcon className="h-3.5 w-3.5" />

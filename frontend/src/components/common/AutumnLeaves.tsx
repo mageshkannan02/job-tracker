@@ -31,17 +31,21 @@ export const AutumnLeaves: React.FC = () => {
   const [leaves, setLeaves] = useState<Leaf[]>([]);
 
   useEffect(() => {
+    // Calibrate leaf count for mobile vs desktop for optimal 60fps smoothness
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const leafCount = isMobile ? 6 : 18;
+
     // Generate stable set of randomized falling leaves
-    const generated: Leaf[] = Array.from({ length: 18 }).map((_, i) => ({
+    const generated: Leaf[] = Array.from({ length: leafCount }).map((_, i) => ({
       id: i,
-      left: Math.random() * 96 + 2,
-      size: Math.floor(Math.random() * 16) + 16, // 16px to 32px
-      duration: Math.floor(Math.random() * 10) + 12, // 12s to 22s
-      delay: Math.random() * 12,
-      swayDuration: Math.floor(Math.random() * 3) + 3, // 3s to 6s
+      left: Math.random() * 94 + 3,
+      size: Math.floor(Math.random() * (isMobile ? 12 : 16)) + (isMobile ? 14 : 16),
+      duration: Math.floor(Math.random() * 10) + (isMobile ? 14 : 12),
+      delay: Math.random() * 10,
+      swayDuration: Math.floor(Math.random() * 3) + 3,
       type: (['maple', 'oak', 'birch'] as const)[i % 3],
       color: AUTUMN_COLORS[i % AUTUMN_COLORS.length],
-      opacity: Math.random() * 0.35 + 0.45, // 0.45 to 0.8
+      opacity: Math.random() * 0.35 + 0.45,
       rotate: Math.floor(Math.random() * 360),
     }));
     setLeaves(generated);
@@ -66,15 +70,16 @@ export const AutumnLeaves: React.FC = () => {
       {leaves.map((leaf) => (
         <div
           key={leaf.id}
-          className="absolute"
+          className="absolute will-change-transform"
           style={{
             left: `${leaf.left}%`,
-            top: '-40px',
+            top: 0,
             animation: `autumn-fall ${leaf.duration}s linear infinite`,
             animationDelay: `${leaf.delay}s`,
           }}
         >
           <div
+            className="will-change-transform"
             style={{
               animation: `autumn-sway ${leaf.swayDuration}s ease-in-out infinite alternate`,
               transform: `rotate(${leaf.rotate}deg)`,

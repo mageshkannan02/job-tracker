@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { TopBar } from './TopBar';
+import { MobileBottomNav } from './MobileBottomNav';
 import { AutumnLeaves } from '@/components/common/AutumnLeaves';
 import { AutumnTrainBackground } from '@/components/common/AutumnTrainBackground';
 import { ApplicationForm } from '@/components/applications/ApplicationForm';
@@ -102,12 +103,15 @@ export const Layout: React.FC = () => {
           onToggleCollapse={toggleSidebarCollapse}
         />
 
-        <main className="flex-1 p-3.5 sm:p-6 lg:p-8 overflow-y-auto">
-          <div key={location.pathname} className="animate-in fade-in-50 slide-in-from-bottom-2 duration-250 ease-out fill-mode-both">
+        <main className="flex-1 p-3 sm:p-6 lg:p-8 overflow-y-auto pb-24 lg:pb-8 overscroll-contain">
+          <div key={location.pathname} className="animate-in fade-in-50 slide-in-from-bottom-1 duration-200 ease-out fill-mode-both">
             <Outlet context={{ searchQuery, onOpenAddModal: () => setIsAddModalOpen(true) }} />
           </div>
         </main>
       </div>
+
+      {/* Modern Thumb-Friendly Mobile Bottom Navigation */}
+      <MobileBottomNav />
 
       {/* Global Add Application Dialog */}
       <ApplicationForm

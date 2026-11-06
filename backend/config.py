@@ -1,5 +1,6 @@
 import os
 import shutil
+import tempfile
 from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -9,9 +10,10 @@ _is_serverless = bool(
     or os.getenv("AWS_LAMBDA_FUNCTION_NAME")
     or os.getenv("NOW_REGION")
 )
-_default_data_dir = Path("/tmp/data") if _is_serverless else Path("./data")
-_default_resume_dir = Path("/tmp/resumes") if _is_serverless else Path("./resumes")
-_default_backup_dir = Path("/tmp/backups") if _is_serverless else Path("./backups")
+_temp_root = Path(tempfile.gettempdir())
+_default_data_dir = (_temp_root / "data") if _is_serverless else Path("./data")
+_default_resume_dir = (_temp_root / "resumes") if _is_serverless else Path("./resumes")
+_default_backup_dir = (_temp_root / "backups") if _is_serverless else Path("./backups")
 
 
 class Settings(BaseSettings):
@@ -59,9 +61,9 @@ class Settings(BaseSettings):
             self.backup_dir.mkdir(parents=True, exist_ok=True)
         except OSError:
             # Fallback if working directory is read-only (e.g. Vercel/Lambda serverless execution)
-            self.data_dir = Path("/tmp/data")
-            self.resume_dir = Path("/tmp/resumes")
-            self.backup_dir = Path("/tmp/backups")
+            self.data_dir = _temp_root / "data"
+            self.resume_dir = _temp_root / "resumes"
+            self.backup_dir = _temp_root / "backups"
             self.data_dir.mkdir(parents=True, exist_ok=True)
             self.resume_dir.mkdir(parents=True, exist_ok=True)
             self.backup_dir.mkdir(parents=True, exist_ok=True)

@@ -5,7 +5,8 @@ import {
   DragOverEvent,
   DragOverlay,
   DragStartEvent,
-  PointerSensor,
+  MouseSensor,
+  TouchSensor,
   useSensor,
   useSensors,
   closestCorners,
@@ -238,10 +239,17 @@ export const KanbanBoard: React.FC<KanbanBoardProps> = ({
 }) => {
   const [activeCard, setActiveCard] = useState<Application | null>(null);
 
+  // Optimized dual sensors: MouseSensor for instant desktop drag, TouchSensor with press-and-hold delay to allow butter-smooth scrolling on mobile touchscreens
   const sensors = useSensors(
-    useSensor(PointerSensor, {
+    useSensor(MouseSensor, {
       activationConstraint: {
-        distance: 5,
+        distance: 8,
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 250,
+        tolerance: 8,
       },
     })
   );

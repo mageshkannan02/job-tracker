@@ -191,7 +191,8 @@ export const AutumnTrainBackground: React.FC = () => {
         <img
           src="/autumn-dense-forest-train.jpg"
           alt="Vintage steam train traveling through dense autumn forest"
-          className="w-full h-full object-cover object-center filter brightness-[0.98] contrast-[1.04]"
+          decoding="async"
+          className="w-full h-full object-cover object-center filter brightness-[0.98] contrast-[1.04] will-change-transform"
           style={{
             animation: 'cinematic-forest-pan 45s ease-in-out infinite',
             transformOrigin: 'center center',
@@ -226,8 +227,8 @@ export const AutumnTrainBackground: React.FC = () => {
         )}
       </div>
 
-      {/* 2. Volumetric Sunbeams / God Rays filtering through tree canopy */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-60">
+      {/* 2. Volumetric Sunbeams / God Rays filtering through tree canopy (Desktop only for max mobile performance) */}
+      <div className="hidden md:block absolute inset-0 overflow-hidden pointer-events-none opacity-60">
         <div
           className="absolute -top-[20%] left-[25%] w-[45vw] h-[130vh] bg-gradient-to-b from-amber-200/25 via-yellow-100/15 to-transparent blur-2xl transform -rotate-12 origin-top"
           style={{ animation: 'sunbeam-shimmer 9s ease-in-out infinite' }}
@@ -238,8 +239,8 @@ export const AutumnTrainBackground: React.FC = () => {
         />
       </div>
 
-      {/* 3. Rolling Autumn Morning Mist & Atmospheric Fog */}
-      <div className="absolute bottom-0 inset-x-0 h-[45vh] overflow-hidden pointer-events-none">
+      {/* 3. Rolling Autumn Morning Mist & Atmospheric Fog (Desktop only) */}
+      <div className="hidden md:block absolute bottom-0 inset-x-0 h-[45vh] overflow-hidden pointer-events-none">
         {/* Lower ground mist layer */}
         <div
           className="absolute inset-0 bg-gradient-to-t from-amber-100/15 via-orange-50/10 to-transparent blur-2xl"
@@ -251,10 +252,9 @@ export const AutumnTrainBackground: React.FC = () => {
         />
       </div>
 
-      {/* 4. Animated Steam Clouds Billowing from Train Chimney */}
-      {/* Positioned over the locomotive smokestack area in the center-left composition */}
+      {/* 4. Animated Steam Clouds Billowing from Train Chimney (Desktop only) */}
       <div
-        className="absolute left-[38%] top-[48%] pointer-events-none overflow-visible"
+        className="hidden md:block absolute left-[38%] top-[48%] pointer-events-none overflow-visible"
         aria-hidden="true"
       >
         {/* Steam Cloud 1 */}
@@ -294,8 +294,8 @@ export const AutumnTrainBackground: React.FC = () => {
         </>
       )}
 
-      {/* 6. Dynamic Blowing Autumn Leaves Swirling in Wind Gusts */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* 6. Dynamic Blowing Autumn Leaves (Desktop only - mobile has dedicated AutumnLeaves) */}
+      <div className="hidden md:block absolute inset-0 overflow-hidden pointer-events-none">
         {Array.from({ length: 32 }).map((_, i) => {
           const colors = [
             '#ea580c', // Fiery orange
